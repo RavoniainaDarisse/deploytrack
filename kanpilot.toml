@@ -1,0 +1,405 @@
+name = "DeployTrack"
+skipFolders = [
+  "node_modules",
+  ".vscode",
+  "out",
+  "dist",
+  ".vscode-test",
+  "var",
+  "vendor",
+  ".git"
+]
+skipFiles = [ ".gitignore", "package.json" ]
+
+[[processes]]
+id = "process1"
+name = "To Do"
+
+  [[processes.tasks]]
+  id = "s1-task3"
+  title = "[Sprint 1] Ajouter les validations"
+  description = "Valider les données d'une application avant leur enregistrement."
+  tag = "backend"
+  linkFiles = [ "src/Entity" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task4"
+  title = "[Sprint 1] Créer et exécuter la migration"
+  description = "Créer la table Application dans SQLite avec Doctrine Migrations."
+  tag = "database"
+  linkFiles = [ "migrations", "config/packages/doctrine_migrations.yaml" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task5"
+  title = "[Sprint 1] Créer la liste des applications"
+  description = "Afficher les applications enregistrées."
+  tag = "frontend"
+  linkFiles = [ "src/Controller", "templates" ]
+  dueDate = ""
+  priority = "medium"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task6"
+  title = "[Sprint 1] Créer le formulaire d'ajout"
+  description = "Permettre à l'utilisateur d'enregistrer une application."
+  tag = "frontend"
+  linkFiles = [ "src/Controller", "templates" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task7"
+  title = "[Sprint 1] Créer le détail d'une application"
+  description = "Afficher les informations d'une application spécifique."
+  tag = "frontend"
+  linkFiles = [ "src/Controller", "templates" ]
+  dueDate = ""
+  priority = "medium"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task8"
+  title = "[Sprint 1] Tester les fonctionnalités"
+  description = "Vérifier le parcours de création et de consultation."
+  tag = "testing"
+  linkFiles = [ "tests" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s2-task1"
+  title = "[Sprint 2] Créer l'entité Release"
+  description = "Représenter une version livrable d'une application."
+  tag = "backend"
+  linkFiles = [ "src/Entity" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s2-task2"
+  title = "[Sprint 2] Créer l'entité Environment"
+  description = "Représenter les environnements de déploiement."
+  tag = "backend"
+  linkFiles = [ "src/Entity" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s2-task3"
+  title = "[Sprint 2] Définir les relations Doctrine"
+  description = "Relier les applications, versions et environnements."
+  tag = "database"
+  linkFiles = [ "src/Entity" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s2-task4"
+  title = "[Sprint 2] Gérer les versions et environnements"
+  description = "Créer les pages de consultation et de création nécessaires."
+  tag = "frontend"
+  linkFiles = [ "src/Controller", "templates" ]
+  dueDate = ""
+  priority = "medium"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s3-task1"
+  title = "[Sprint 3] Créer l'entité Deployment"
+  description = "Enregistrer une tentative de déploiement d'une version vers un environnement."
+  tag = "backend"
+  linkFiles = [ "src/Entity" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s3-task2"
+  title = "[Sprint 3] Définir les statuts de déploiement"
+  description = "Encadrer les états et transitions autorisés."
+  tag = "business-logic"
+  linkFiles = [ "src/Entity", "src/Service" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s3-task3"
+  title = "[Sprint 3] Créer l'historique des déploiements"
+  description = "Afficher les tentatives de déploiement et leurs résultats."
+  tag = "frontend"
+  linkFiles = [ "src/Controller", "templates" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s3-task4"
+  title = "[Sprint 3] Ajouter les tests fonctionnels"
+  description = "Tester les parcours critiques du MVP."
+  tag = "testing"
+  linkFiles = [ "tests" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s3-task5"
+  title = "[Sprint 3] Finaliser l'interface"
+  description = "Harmoniser l'interface de suivi avec un design noir et blanc."
+  tag = "ui"
+  linkFiles = [ "templates" ]
+  dueDate = ""
+  priority = "medium"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s4-task1"
+  title = "[Sprint 4] Conteneuriser l'application"
+  description = "Préparer un environnement reproductible avec Docker."
+  tag = "devops"
+  linkFiles = [ "Dockerfile", "compose.yaml" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s4-task2"
+  title = "[Sprint 4] Automatiser les tests"
+  description = "Exécuter les tests et contrôles de qualité automatiquement."
+  tag = "ci"
+  linkFiles = [ ".gitlab-ci.yml" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s4-task3"
+  title = "[Sprint 4] Configurer GitLab CI/CD"
+  description = "Définir une pipeline d'intégration continue pour DeployTrack."
+  tag = "devops"
+  linkFiles = [ ".gitlab-ci.yml" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s4-task4"
+  title = "[Sprint 4] Documenter le projet"
+  description = "Expliquer l'architecture, l'installation et les décisions techniques."
+  tag = "documentation"
+  linkFiles = [ "README.md" ]
+  dueDate = ""
+  priority = "medium"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s4-task5"
+  title = "[Sprint 4] Préparer la démonstration"
+  description = "Présenter le projet et ses compétences techniques dans le portfolio."
+  tag = "portfolio"
+  linkFiles = [ "README.md" ]
+  dueDate = ""
+  priority = "medium"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+[[processes]]
+id = "process2"
+name = "In Progress"
+tasks = [ ]
+
+[[processes]]
+id = "process3"
+name = "Done"
+
+  [[processes.tasks]]
+  id = "s1-task1"
+  title = "[Sprint 1] Vérifier Symfony et SQLite"
+  description = "Vérifier la configuration Symfony, Doctrine et la connexion SQLite."
+  tag = "setup"
+  linkFiles = [ ".env", "config/packages/doctrine.yaml" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task2"
+  title = "[Sprint 1] Créer l'entité Application"
+  description = "Modéliser un projet logiciel suivi par DeployTrack."
+  tag = "backend"
+  linkFiles = [ "src/Entity" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
