@@ -1,0 +1,62 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier {{ application.name }} — DeployTrack{% endblock %}
+
+{% block body %}
+<main style="max-width: 720px; margin: 40px auto; padding: 0 20px;">
+
+    <a href="{{ path('app_application_show', {
+        id: application.id
+    }) }}">
+        ← Retour au détail
+    </a>
+
+    <h1>Modifier l'application</h1>
+
+    {% for message in app.flashes('error') %}
+        <p style="color: #b91c1c;">{{ message }}</p>
+    {% endfor %}
+
+    <form method="post" action="{{ path('app_application_edit', {
+        id: application.id
+    }) }}">
+        <div style="margin-bottom: 20px;">
+            <label for="name">Nom *</label><br>
+            <input
+                id="name"
+                name="name"
+                type="text"
+                maxlength="255"
+                required
+                value="{{ application.name }}"
+                style="width: 100%; padding: 10px;"
+            >
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label for="repositoryUrl">URL du dépôt Git</label><br>
+            <input
+                id="repositoryUrl"
+                name="repositoryUrl"
+                type="url"
+                maxlength="255"
+                value="{{ application.repositoryUrl ?? '' }}"
+                style="width: 100%; padding: 10px;"
+            >
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label for="description">Description</label><br>
+            <textarea
+                id="description"
+                name="description"
+                rows="5"
+                style="width: 100%; padding: 10px;"
+            >{{ application.description ?? '' }}</textarea>
+        </div>
+
+        <button type="submit">Enregistrer les modifications</button>
+    </form>
+</main>
+{% endblock %}

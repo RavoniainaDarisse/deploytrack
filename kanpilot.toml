@@ -16,56 +16,6 @@ id = "process1"
 name = "To Do"
 
   [[processes.tasks]]
-  id = "s1-task3"
-  title = "[Sprint 1] Ajouter les validations"
-  description = "Valider les données d'une application avant leur enregistrement."
-  tag = "backend"
-  linkFiles = [ "src/Entity" ]
-  dueDate = ""
-  priority = "high"
-  linkCommits = [ ]
-
-    [[processes.tasks.checkList]]
-
-    [[processes.tasks.checkList]]
-
-    [[processes.tasks.checkList]]
-
-  [[processes.tasks]]
-  id = "s1-task4"
-  title = "[Sprint 1] Créer et exécuter la migration"
-  description = "Créer la table Application dans SQLite avec Doctrine Migrations."
-  tag = "database"
-  linkFiles = [ "migrations", "config/packages/doctrine_migrations.yaml" ]
-  dueDate = ""
-  priority = "high"
-  linkCommits = [ ]
-
-    [[processes.tasks.checkList]]
-
-    [[processes.tasks.checkList]]
-
-    [[processes.tasks.checkList]]
-
-    [[processes.tasks.checkList]]
-
-  [[processes.tasks]]
-  id = "s1-task5"
-  title = "[Sprint 1] Créer la liste des applications"
-  description = "Afficher les applications enregistrées."
-  tag = "frontend"
-  linkFiles = [ "src/Controller", "templates" ]
-  dueDate = ""
-  priority = "medium"
-  linkCommits = [ ]
-
-    [[processes.tasks.checkList]]
-
-    [[processes.tasks.checkList]]
-
-    [[processes.tasks.checkList]]
-
-  [[processes.tasks]]
   id = "s1-task6"
   title = "[Sprint 1] Créer le formulaire d'ajout"
   description = "Permettre à l'utilisateur d'enregistrer une application."
@@ -362,7 +312,22 @@ name = "To Do"
 [[processes]]
 id = "process2"
 name = "In Progress"
-tasks = [ ]
+
+  [[processes.tasks]]
+  id = "s1-task5"
+  title = "[Sprint 1] Créer la liste des applications"
+  description = "Afficher les applications enregistrées."
+  tag = "frontend"
+  linkFiles = [ "src/Controller", "templates" ]
+  dueDate = ""
+  priority = "medium"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
 
 [[processes]]
 id = "process3"
@@ -395,6 +360,40 @@ name = "Done"
   linkCommits = [ ]
 
     [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task3"
+  title = "[Sprint 1] Ajouter les validations"
+  description = "Valider les données d'une application avant leur enregistrement."
+  tag = "backend"
+  linkFiles = [ "src/Entity" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+    [[processes.tasks.checkList]]
+
+  [[processes.tasks]]
+  id = "s1-task4"
+  title = "[Sprint 1] Créer et exécuter la migration"
+  description = "Créer la table Application dans SQLite avec Doctrine Migrations."
+  tag = "database"
+  linkFiles = [ "migrations", "config/packages/doctrine_migrations.yaml" ]
+  dueDate = ""
+  priority = "high"
+  linkCommits = [ ]
 
     [[processes.tasks.checkList]]
 

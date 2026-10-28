@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\ApplicationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeImmutable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ApplicationRepository::class)]
 class Application
@@ -15,9 +18,19 @@ class Application
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Le nom de l’application est obligatoire.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'Le nom ne peut pas dépasser {{ limit }} caractères.'
+    )]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Url(message: 'Veuillez saisir une URL valide.')]
+    #[Assert\Length(
+        max: 255,
+        maxMessage: 'L’URL ne peut pas dépasser {{ limit }} caractères.'
+    )]
     private ?string $repositoryUrl = null;
 
     #[ORM\Column(type: 'text', nullable: true)]
@@ -26,9 +39,16 @@ class Application
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
+    /**
+     * @var Collection<int, Environment>
+     */
+    #[ORM\OneToMany(targetEntity: Environment::class, mappedBy: 'application')]
+    private Collection $environments;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->environments = new ArrayCollection();
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -73,6 +93,36 @@ class Application
     public function setDescription(?string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Environment>
+     */
+    public function getEnvironments(): Collection
+    {
+        return $this->environments;
+    }
+
+    public function addEnvironment(Environment $environment): static
+    {
+        if (!$this->environments->contains($environment)) {
+            $this->environments->add($environment);
+            $environment->setApplication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEnvironment(Environment $environment): static
+    {
+        if ($this->environments->removeElement($environment)) {
+            // set the owning side to null (unless already changed)
+            if ($environment->getApplication() === $this) {
+                $environment->setApplication(null);
+            }
+        }
 
         return $this;
     }

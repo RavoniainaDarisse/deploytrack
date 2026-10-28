@@ -1,0 +1,50 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ application.name }} — DeployTrack{% endblock %}
+
+{% block body %}
+<main style="max-width: 800px; margin: 40px auto; padding: 0 20px;">
+
+    <a href="{{ path('app_application_index') }}">
+        ← Retour aux applications
+    </a>
+
+    <h1>{{ application.name }}</h1>
+
+    <p>
+        <strong>ID :</strong>
+        {{ application.id }}
+    </p>
+
+    <p>
+        <strong>Date de création :</strong>
+        {{ application.createdAt|date('d/m/Y à H:i') }}
+    </p>
+
+    <h2>Dépôt Git</h2>
+
+    {% if application.repositoryUrl %}
+        <a href="{{ application.repositoryUrl }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            {{ application.repositoryUrl }}
+        </a>
+    {% else %}
+        <p>Aucun dépôt Git renseigné.</p>
+    {% endif %}
+
+    <h2>Description</h2>
+
+    {% if application.description %}
+        <p>{{ application.description }}</p>
+    {% else %}
+        <p>Aucune description disponible.</p>
+    {% endif %}
+
+    <a href="{{ path('app_application_index') }}">
+        Retour à la liste
+    </a>
+
+</main>
+{% endblock %}

@@ -1,0 +1,58 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle application — DeployTrack{% endblock %}
+
+{% block body %}
+<main style="max-width: 720px; margin: 40px auto; padding: 0 20px;">
+    <a href="{{ path('app_application_index') }}">
+        ← Retour aux applications
+    </a>
+
+    <h1>Nouvelle application</h1>
+    <p>Ajoutez une application à suivre dans DeployTrack.</p>
+
+    {% for message in app.flashes('error') %}
+        <p style="color: #b91c1c;">{{ message }}</p>
+    {% endfor %}
+
+    <form method="post" action="{{ path('app_application_new') }}">
+        <div style="margin-bottom: 20px;">
+            <label for="name">Nom *</label><br>
+            <input
+                id="name"
+                name="name"
+                type="text"
+                maxlength="255"
+                required
+                style="width: 100%; padding: 10px;"
+            >
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label for="repositoryUrl">URL du dépôt Git</label><br>
+            <input
+                id="repositoryUrl"
+                name="repositoryUrl"
+                type="url"
+                maxlength="255"
+                placeholder="https://gitlab.com/equipe/projet"
+                style="width: 100%; padding: 10px;"
+            >
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label for="description">Description</label><br>
+            <textarea
+                id="description"
+                name="description"
+                rows="5"
+                style="width: 100%; padding: 10px;"
+            ></textarea>
+        </div>
+
+        <button type="submit">Créer l'application</button>
+        <a href="{{ path('app_application_index') }}">Annuler</a>
+    </form>
+</main>
+{% endblock %}
