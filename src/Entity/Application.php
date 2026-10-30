@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Environment;
 use App\Repository\ApplicationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -42,7 +43,11 @@ class Application
     /**
      * @var Collection<int, Environment>
      */
-    #[ORM\OneToMany(targetEntity: Environment::class, mappedBy: 'application')]
+    #[ORM\OneToMany(
+        targetEntity: Environment::class,
+        mappedBy: 'application',
+        orphanRemoval: true
+    )]
     private Collection $environments;
 
     public function __construct()

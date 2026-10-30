@@ -1,24 +1,92 @@
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
+    <title>{% block title %}DeployTrack{% endblock %}</title>
 
-        {% set frankenphp_hot_reload = app.request.server.get('FRANKENPHP_HOT_RELOAD') %}
-        {% if frankenphp_hot_reload %}
-        <meta name="frankenphp-hot-reload:url" content="{{ frankenphp_hot_reload }}">
-        <script src="https://cdn.jsdelivr.net/npm/idiomorph"></script>
-        <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
-        {% endif %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    {% block stylesheets %}
+        {{ importmap('app') }}
+    {% endblock %}
+</head>
+<body class="min-h-screen bg-white text-gray-900 antialiased">
+    <div class="min-h-screen ">
+
+        {# Sidebar #}
+        <aside class="fixed flex w-full flex-col border-b border-gray-200 bg-gray-50 md:min-h-screen md:w-64 md:shrink-0 md:border-b-0 md:border-r">
+            <div class="flex h-16 items-center gap-3 border-b border-gray-200 px-6">
+                <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-black text-sm font-bold text-white">
+                    D
+                </div>
+                <span class="text-lg font-semibold tracking-tight">DeployTrack</span>
+            </div>
+
+            <nav class="flex-1 space-y-1 p-4">
+                <p class="mb-3 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400">
+                    Workspace
+                </p>
+
+                <a href="{{ path('app_application_index') }}"
+                   class="flex items-center gap-3 rounded-lg bg-gray-200 px-3 py-2.5 text-sm font-medium text-gray-950">
+                    <span aria-hidden="true">▦</span>
+                    Applications
+                </a>
+
+                {# Les liens seront activés lorsque les routes existeront. #}
+                <div class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-500">
+                    <span aria-hidden="true">◇</span>
+                    Environnements
+                    <span class="ml-auto text-xs text-gray-400">Bientôt</span>
+                </div>
+
+                <div class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-500">
+                    <span aria-hidden="true">↗</span>
+                    Releases
+                    <span class="ml-auto text-xs text-gray-400">Bientôt</span>
+                </div>
+
+                <div class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-gray-500">
+                    <span aria-hidden="true">◷</span>
+                    Déploiements
+                    <span class="ml-auto text-xs text-gray-400">Bientôt</span>
+                </div>
+            </nav>
+
+            <div class="border-t border-gray-200 p-4">
+                <div class="rounded-lg border border-gray-200 bg-white p-3">
+                    <p class="text-sm font-medium">DeployTrack</p>
+                    <p class="mt-1 text-xs text-gray-500">Suivi des applications et déploiements</p>
+                </div>
+            </div>
+        </aside>
+
+        {# Main content #}
+        <main class="min-w-0 md:ml-64">
+           <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-gray-200 bg-white/95 px-5 backdrop-blur md:px-8">
+                <p class="text-sm text-gray-500">Workspace / <span class="font-medium text-gray-900">{% block breadcrumb %}Applications{% endblock %}</span></p>
+
+                <div class="flex items-center gap-3">
+                    <span class="hidden text-sm text-gray-500 sm:inline">Developer workspace</span>
+                    <div class="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 bg-gray-100 text-xs font-semibold">
+                        DT
+                    </div>
+                </div>
+            </header>
+
+            <div class="mx-auto w-full max-w-[1440px] p-5 md:p-8">
+                {% for message in app.flashes('success') %}
+                    <div class="mb-5 rounded-lg border border-gray-200 bg-gray-50 px-4 py-3 text-sm text-gray-800">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+
+                {% block body %}{% endblock %}
+            </div>
+        </main>
+    </div>
+</body>
 </html>
