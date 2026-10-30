@@ -1,0 +1,69 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ environment.name }}{% endblock %}
+
+{% block body %}
+    <h1>{{ environment.name }}</h1>
+
+    <p>
+        Application :
+        <a href="{{ path('app_application_show', {id: application.id}) }}">
+            {{ application.name }}
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ path('app_environment_index', {applicationId: application.id}) }}">
+            Retour aux environnements
+        </a>
+    </p>
+
+    <h2>Informations</h2>
+
+    <p><strong>ID :</strong> {{ environment.id }}</p>
+
+    <p><strong>Nom :</strong> {{ environment.name }}</p>
+
+    <p><strong>Type :</strong> {{ environment.type }}</p>
+
+    <p>
+        <strong>URL :</strong>
+        {% if environment.url %}
+            <a href="{{ environment.url }}" target="_blank" rel="noopener noreferrer">
+                {{ environment.url }}
+            </a>
+        {% else %}
+            Non renseignée
+        {% endif %}
+    </p>
+
+    <p>
+        <strong>Date de création :</strong>
+        {{ environment.createdAt|date('d/m/Y H:i') }}
+    </p>
+
+    <a href="{{ path('app_environment_edit', {
+        applicationId: application.id,
+        id: environment.id
+    }) }}">
+        Modifier
+    </a>
+
+    <form
+        method="post"
+        action="{{ path('app_environment_delete', {
+            applicationId: application.id,
+            id: environment.id
+        }) }}"
+        onsubmit="return confirm('Voulez-vous vraiment supprimer cet environnement ?');"
+    >
+        <input
+            type="hidden"
+            name="_token"
+            value="{{ csrf_token('delete_environment_' ~ environment.id) }}"
+        >
+
+        <button type="submit">Supprimer</button>
+    </form>
+{% endblock %}

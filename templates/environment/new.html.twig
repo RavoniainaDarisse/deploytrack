@@ -1,0 +1,77 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvel environnement{% endblock %}
+
+{% block body %}
+    <h1>Créer un environnement</h1>
+
+    <p>
+        Application :
+        <strong>{{ application.name }}</strong>
+    </p>
+
+    <p>
+        <a href="{{ path('app_environment_index', {applicationId: application.id}) }}">
+            Retour aux environnements
+        </a>
+    </p>
+
+    {% for message in app.flashes('error') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <form method="post">
+        <div>
+            <label for="name">Nom de l'environnement</label>
+            <input
+                type="text"
+                id="name"
+                name="name"
+                value="{{ environment.name ?? '' }}"
+                required
+                maxlength="255"
+            >
+        </div>
+
+        <div>
+            <label for="type">Type d'environnement</label>
+            <select id="type" name="type" required>
+                <option value="">Sélectionner un type</option>
+
+                <option value="development"
+                    {% if environment.type == 'development' %}selected{% endif %}>
+                    Development
+                </option>
+
+                <option value="staging"
+                    {% if environment.type == 'staging' %}selected{% endif %}>
+                    Staging
+                </option>
+
+                <option value="production"
+                    {% if environment.type == 'production' %}selected{% endif %}>
+                    Production
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="url">URL de l'environnement</label>
+            <input
+                type="url"
+                id="url"
+                name="url"
+                value="{{ environment.url ?? '' }}"
+                maxlength="255"
+                placeholder="https://example.com"
+            >
+        </div>
+
+        <button type="submit">Créer l'environnement</button>
+
+        <a href="{{ path('app_environment_index', {applicationId: application.id}) }}">
+            Annuler
+        </a>
+    </form>
+{% endblock %}
