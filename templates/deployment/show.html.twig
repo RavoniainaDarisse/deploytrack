@@ -1,0 +1,62 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Déploiement #{{ deployment.id }}{% endblock %}
+
+{% block body %}
+    <h1>Déploiement #{{ deployment.id }}</h1>
+
+    {% for message in app.flashes('success') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <h2>Informations générales</h2>
+
+    <p>Application : {{ application.name }}</p>
+    <p>Release : {{ deployment.releaseVersion.version }}</p>
+    <p>Environnement : {{ deployment.targetEnvironment.name }}</p>
+    <p>URL : {{ deployment.targetEnvironment.url ?? 'Non définie' }}</p>
+    <p>Statut : {{ deployment.status }}</p>
+
+    <h2>Historique</h2>
+
+    <p>
+        Créé le :
+        {{ deployment.createdAt|date('d/m/Y H:i:s') }}
+    </p>
+
+    <p>
+        Démarré le :
+        {{ deployment.startedAt
+            ? deployment.startedAt|date('d/m/Y H:i:s')
+            : 'Pas encore démarré' }}
+    </p>
+
+    <p>
+        Terminé le :
+        {{ deployment.finishedAt
+            ? deployment.finishedAt|date('d/m/Y H:i:s')
+            : 'Pas encore terminé' }}
+    </p>
+
+    <h2>Logs</h2>
+
+    {% if deployment.logs %}
+        <pre>{{ deployment.logs }}</pre>
+    {% else %}
+        <p>Aucun log disponible.</p>
+    {% endif %}
+
+    <p>
+        <a href="{{ path('app_deployment_edit', {
+            applicationId: application.id,
+            id: deployment.id
+        }) }}">Modifier le statut et les logs</a>
+    </p>
+
+    <p>
+        <a href="{{ path('app_deployment_index', {
+            applicationId: application.id
+        }) }}">Retour aux déploiements</a>
+    </p>
+{% endblock %}

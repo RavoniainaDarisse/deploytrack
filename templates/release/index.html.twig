@@ -1,0 +1,78 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Releases - {{ application.name }}{% endblock %}
+
+{% block body %}
+    <h1>Releases de {{ application.name }}</h1>
+
+    <p>
+        <a href="{{ path('app_application_show', {id: application.id}) }}">
+            Retour à l'application
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ path('app_release_new', {applicationId: application.id}) }}">
+            Créer une release
+        </a>
+    </p>
+
+    {% for message in app.flashes('success') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    {% if releases is empty %}
+        <p>Aucune release pour cette application.</p>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Version</th>
+                    <th>Description</th>
+                    <th>Date de création</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for release in releases %}
+                    <tr>
+                        <td>{{ release.version }}</td>
+                        <td>{{ release.description|default('Aucune description') }}</td>
+                        <td>{{ release.createdAt|date('d/m/Y H:i') }}</td>
+                        <td>
+                            <a href="{{ path('app_release_show', {
+                                applicationId: application.id,
+                                id: release.id
+                            }) }}">Voir</a>
+
+                            <a href="{{ path('app_release_edit', {
+                                applicationId: application.id,
+                                id: release.id
+                            }) }}">Modifier</a>
+
+                            <form method="post"
+                                  action="{{ path('app_release_delete', {
+                                      applicationId: application.id,
+                                      id: release.id
+                                  }) }}"
+                                  onsubmit="return confirm('Supprimer cette release ?');">
+
+                                <input type="hidden"
+                                       name="_token"
+                                       value="{{ csrf_token('delete_release_' ~ release.id) }}">
+
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

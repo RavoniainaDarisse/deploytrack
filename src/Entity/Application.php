@@ -50,10 +50,17 @@ class Application
     )]
     private Collection $environments;
 
+    /**
+     * @var Collection<int, Release>
+     */
+    #[ORM\OneToMany(targetEntity: Release::class, mappedBy: 'application', orphanRemoval: true)]
+    private Collection $releases;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->environments = new ArrayCollection();
+        $this->releases = new ArrayCollection();
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -126,6 +133,36 @@ class Application
             // set the owning side to null (unless already changed)
             if ($environment->getApplication() === $this) {
                 $environment->setApplication(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Release>
+     */
+    public function getReleases(): Collection
+    {
+        return $this->releases;
+    }
+
+    public function addRelease(Release $release): static
+    {
+        if (!$this->releases->contains($release)) {
+            $this->releases->add($release);
+            $release->setApplication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRelease(Release $release): static
+    {
+        if ($this->releases->removeElement($release)) {
+            // set the owning side to null (unless already changed)
+            if ($release->getApplication() === $this) {
+                $release->setApplication(null);
             }
         }
 

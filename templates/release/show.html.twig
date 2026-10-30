@@ -1,0 +1,40 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Release {{ release.version }}{% endblock %}
+
+{% block body %}
+    <h1>Release {{ release.version }}</h1>
+
+    <p>
+        Application :
+        <a href="{{ path('app_application_show', {id: application.id}) }}">
+            {{ application.name }}
+        </a>
+    </p>
+
+    <h2>Description</h2>
+
+    {% if release.description %}
+        <p>{{ release.description|nl2br }}</p>
+    {% else %}
+        <p>Aucune description disponible.</p>
+    {% endif %}
+
+    <p>
+        Créée le : {{ release.createdAt|date('d/m/Y à H:i') }}
+    </p>
+
+    <p>
+        <a href="{{ path('app_release_edit', {
+            applicationId: application.id,
+            id: release.id
+        }) }}">Modifier</a>
+    </p>
+
+    <p>
+        <a href="{{ path('app_release_index', {
+            applicationId: application.id
+        }) }}">Retour aux releases</a>
+    </p>
+{% endblock %}

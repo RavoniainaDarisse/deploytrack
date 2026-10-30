@@ -1,0 +1,86 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau déploiement{% endblock %}
+
+{% block body %}
+    <h1>Créer un déploiement</h1>
+
+    <p>Application : {{ application.name }}</p>
+
+    {% if relationError %}
+        <p>{{ relationError }}</p>
+    {% endif %}
+
+    {% for error in errors %}
+        <p>
+            {% if error.message is defined %}
+                {{ error.message }}
+            {% else %}
+                {{ error }}
+            {% endif %}
+        </p>
+    {% endfor %}
+
+    {% if releases is empty %}
+        <p>Aucune release disponible. Crée d'abord une release.</p>
+    {% elseif environments is empty %}
+        <p>Aucun environnement disponible. Crée d'abord un environnement.</p>
+    {% else %}
+        <form method="post">
+            <div>
+                <label for="releaseVersion">Release</label>
+
+                <select id="releaseVersion" name="releaseVersion" required>
+                    <option value="">Choisir une release</option>
+
+                    {% for release in releases %}
+                        <option
+                            value="{{ release.id }}"
+                            {% if deployment.releaseVersion and deployment.releaseVersion.id == release.id %}selected{% endif %}
+                        >
+                            {{ release.version }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="targetEnvironment">Environnement</label>
+
+                <select id="targetEnvironment" name="targetEnvironment" required>
+                    <option value="">Choisir un environnement</option>
+
+                    {% for environment in environments %}
+                        <option
+                            value="{{ environment.id }}"
+                            {% if deployment.targetEnvironment and deployment.targetEnvironment.id == environment.id %}selected{% endif %}
+                        >
+                            {{ environment.name }} ({{ environment.type }})
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="logs">Notes initiales (facultatif)</label>
+
+                <textarea
+                    id="logs"
+                    name="logs"
+                    rows="5"
+                >{{ deployment.logs ?? '' }}</textarea>
+            </div>
+
+            <p>Le statut initial sera automatiquement « pending ».</p>
+
+            <button type="submit">Créer le déploiement</button>
+        </form>
+    {% endif %}
+
+    <p>
+        <a href="{{ path('app_deployment_index', {
+            applicationId: application.id
+        }) }}">Annuler</a>
+    </p>
+{% endblock %}

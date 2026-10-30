@@ -1,20 +1,97 @@
+
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EnvironmentController!{% endblock %}
+{% block title %}Environnements - {{ application.name }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Environnements de {{ application.name }}</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <p>
+        <a href="{{ path('app_application_show', {id: application.id}) }}">
+            Retour à l'application
+        </a>
+    </p>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/ravoniaina/DISC/projet/PREPARATION WORKING/symfony/deploytrack/src/Controller/EnvironmentController.php</code></li>
-        <li>Your template at <code>/home/ravoniaina/DISC/projet/PREPARATION WORKING/symfony/deploytrack/templates/environment/index.html.twig</code></li>
-    </ul>
-</div>
+    <p>
+        <a href="{{ path('app_environment_new', {applicationId: application.id}) }}">
+            Ajouter un environnement
+        </a>
+    </p>
+
+    {% for message in app.flashes('success') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <h2>Liste des environnements</h2>
+
+    {% if environments is empty %}
+        <p>Aucun environnement enregistré pour cette application.</p>
+    {% else %}
+        <table border="1" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Type</th>
+                    <th>URL</th>
+                    <th>Date de création</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for environment in environments %}
+                    <tr>
+                        <td>{{ environment.name }}</td>
+                        <td>{{ environment.type }}</td>
+                        <td>
+                            {% if environment.url %}
+                                <a href="{{ environment.url }}" target="_blank" rel="noopener noreferrer">
+                                    {{ environment.url }}
+                                </a>
+                            {% else %}
+                                Non renseignée
+                            {% endif %}
+                        </td>
+                        <td>{{ environment.createdAt|date('d/m/Y H:i') }}</td>
+                        <td>
+                            <a href="{{ path('app_environment_show', {
+                                applicationId: application.id,
+                                id: environment.id
+                            }) }}">
+                                Voir
+                            </a>
+
+                            <a href="{{ path('app_environment_edit', {
+                                applicationId: application.id,
+                                id: environment.id
+                            }) }}">
+                                Modifier
+                            </a>
+
+                            <form
+                                method="post"
+                                action="{{ path('app_environment_delete', {
+                                    applicationId: application.id,
+                                    id: environment.id
+                                }) }}"
+                                onsubmit="return confirm('Voulez-vous vraiment supprimer cet environnement ?');"
+                            >
+                                <input
+                                    type="hidden"
+                                    name="_token"
+                                    value="{{ csrf_token('delete_environment_' ~ environment.id) }}"
+                                >
+
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
 {% endblock %}

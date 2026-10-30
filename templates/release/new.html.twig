@@ -1,0 +1,46 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle release{% endblock %}
+
+{% block body %}
+    <h1>Créer une release</h1>
+
+    <p>Application : {{ application.name }}</p>
+
+    {% for error in errors %}
+        <p>{{ error.message }}</p>
+    {% endfor %}
+
+    <form method="post">
+        <div>
+            <label for="version">Version</label>
+            <input
+                type="text"
+                id="version"
+                name="version"
+                value="{{ release.version ?? '' }}"
+                placeholder="Exemple : 1.0.0"
+                maxlength="50"
+                required
+            >
+        </div>
+
+        <div>
+            <label for="description">Description</label>
+            <textarea
+                id="description"
+                name="description"
+                rows="6"
+            >{{ release.description ?? '' }}</textarea>
+        </div>
+
+        <button type="submit">Créer la release</button>
+    </form>
+
+    <p>
+        <a href="{{ path('app_release_index', {
+            applicationId: application.id
+        }) }}">Annuler</a>
+    </p>
+{% endblock %}

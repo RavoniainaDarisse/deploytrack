@@ -1,0 +1,68 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier le déploiement{% endblock %}
+
+{% block body %}
+    <h1>Modifier le déploiement #{{ deployment.id }}</h1>
+
+    <p>Release : {{ deployment.releaseVersion.version }}</p>
+    <p>Environnement : {{ deployment.targetEnvironment.name }}</p>
+
+    {% for error in errors %}
+        <p>
+            {% if error.message is defined %}
+                {{ error.message }}
+            {% else %}
+                {{ error }}
+            {% endif %}
+        </p>
+    {% endfor %}
+
+    <form method="post">
+        <div>
+            <label for="status">Statut</label>
+
+            <select id="status" name="status" required>
+                <option value="pending"
+                    {% if deployment.status == 'pending' %}selected{% endif %}>
+                    En attente
+                </option>
+
+                <option value="running"
+                    {% if deployment.status == 'running' %}selected{% endif %}>
+                    En cours
+                </option>
+
+                <option value="success"
+                    {% if deployment.status == 'success' %}selected{% endif %}>
+                    Réussi
+                </option>
+
+                <option value="failed"
+                    {% if deployment.status == 'failed' %}selected{% endif %}>
+                    Échoué
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label for="logs">Logs</label>
+
+            <textarea
+                id="logs"
+                name="logs"
+                rows="10"
+            >{{ deployment.logs ?? '' }}</textarea>
+        </div>
+
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <p>
+        <a href="{{ path('app_deployment_show', {
+            applicationId: application.id,
+            id: deployment.id
+        }) }}">Annuler</a>
+    </p>
+{% endblock %}

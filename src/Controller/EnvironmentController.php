@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/applications/{applicationId}/environments', name: 'app_environment_')]
 class EnvironmentController extends AbstractController
@@ -43,7 +44,8 @@ class EnvironmentController extends AbstractController
         int $applicationId,
         ApplicationRepository $applicationRepository,
         Request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator
     ): Response {
         $application = $applicationRepository->find($applicationId);
 
@@ -60,7 +62,7 @@ class EnvironmentController extends AbstractController
                 ->setType($request->request->get('type', ''))
                 ->setUrl($request->request->get('url') ?: null);
 
-            $errors = $this->$this->get('validator')->validate($environment);
+            $errors = $validator->validate($environment);
 
             if (count($errors) === 0) {
                 $entityManager->persist($environment);
@@ -111,7 +113,8 @@ class EnvironmentController extends AbstractController
         ApplicationRepository $applicationRepository,
         EnvironmentRepository $environmentRepository,
         Request $request,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator
     ): Response {
         $application = $applicationRepository->find($applicationId);
         $environment = $environmentRepository->find($id);
@@ -126,7 +129,7 @@ class EnvironmentController extends AbstractController
                 ->setType($request->request->get('type', ''))
                 ->setUrl($request->request->get('url') ?: null);
 
-            $errors = $this->$this->get('validator')->validate($environment);
+            $errors = $validator->validate($environment);
 
             if (count($errors) === 0) {
                 $entityManager->flush();

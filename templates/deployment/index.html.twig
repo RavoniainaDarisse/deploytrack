@@ -1,0 +1,84 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Déploiements - {{ application.name }}{% endblock %}
+
+{% block body %}
+    <h1>Déploiements de {{ application.name }}</h1>
+
+    <p>
+        <a href="{{ path('app_application_show', {id: application.id}) }}">
+            Retour à l'application
+        </a>
+    </p>
+
+    <p>
+        <a href="{{ path('app_deployment_new', {
+            applicationId: application.id
+        }) }}">
+            Créer un déploiement
+        </a>
+    </p>
+
+    {% for message in app.flashes('success') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    {% for message in app.flashes('error') %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    {% if deployments is empty %}
+        <p>Aucun déploiement pour cette application.</p>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Release</th>
+                    <th>Environnement</th>
+                    <th>Statut</th>
+                    <th>Date de création</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for deployment in deployments %}
+                    <tr>
+                        <td>{{ deployment.releaseVersion.version }}</td>
+                        <td>{{ deployment.targetEnvironment.name }}</td>
+                        <td>{{ deployment.status }}</td>
+                        <td>{{ deployment.createdAt|date('d/m/Y H:i') }}</td>
+                        <td>
+                            <a href="{{ path('app_deployment_show', {
+                                applicationId: application.id,
+                                id: deployment.id
+                            }) }}">Voir</a>
+
+                            <a href="{{ path('app_deployment_edit', {
+                                applicationId: application.id,
+                                id: deployment.id
+                            }) }}">Modifier</a>
+
+                            <form method="post"
+                                  action="{{ path('app_deployment_delete', {
+                                      applicationId: application.id,
+                                      id: deployment.id
+                                  }) }}"
+                                  onsubmit="return confirm('Supprimer ce déploiement ?');">
+
+                                <input
+                                    type="hidden"
+                                    name="_token"
+                                    value="{{ csrf_token('delete_deployment_' ~ deployment.id) }}"
+                                >
+
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}
